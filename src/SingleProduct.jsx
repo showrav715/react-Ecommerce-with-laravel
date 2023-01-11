@@ -1,7 +1,9 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const SingleProduct = () => {
-  return <h1>single page </h1>;
+  const id = useParams().id;
+  return <h1>single page {id}  </h1>;
 };
 
 const Wrapper = styled.section`
