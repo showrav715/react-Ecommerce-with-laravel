@@ -1,14 +1,99 @@
+import { useContext, useEffect } from "react";
+import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
+import { ProductContext } from "./context/ProductContext";
+import { MdSecurity } from "react-icons/md";
+import { TbTruckDelivery, TbReplace } from "react-icons/tb";
+import Gallery from "./components/Gallery";
+import BackNavigation from "./components/BackNavigation";
 const SingleProduct = () => {
   const id = useParams().id;
-  return <h1>single page {id}  </h1>;
+
+  const { single_product, getSingleProduct, loading } = useContext(ProductContext);
+  console.log(single_product);
+  const {name,price,category,image,description,company,stock} = single_product;
+  useEffect(() => {
+    getSingleProduct(id);
+  },[])
+
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  return (
+    <Wrapper>
+      <BackNavigation title={name} />
+      <Container className="container">
+        <div className="grid grid-two-column">
+          {/* product Images  */}
+          <div className="product_images">
+            <Gallery images={image} />
+          </div>
+          {/* product dAta  */}
+          <div className="product-data">
+            <h2>{name}</h2>
+              {price}
+
+            <p className="product-data-price">
+              MRP:
+              <del>
+                {price}
+              </del>
+            </p>
+            <p className="product-data-price product-data-real-price">
+              Deal of the Day: {price}
+            </p>
+            <p>{description}</p>
+            <div className="product-data-warranty">
+              <div className="product-warranty-data">
+                <TbTruckDelivery className="warranty-icon" />
+                <p>Free Delivery</p>
+              </div>
+
+              <div className="product-warranty-data">
+                <TbReplace className="warranty-icon" />
+                <p>30 Days Replacement</p>
+              </div>
+
+              <div className="product-warranty-data">
+                <TbTruckDelivery className="warranty-icon" />
+                <p>Thapa Delivered </p>
+              </div>
+
+              <div className="product-warranty-data">
+                <MdSecurity className="warranty-icon" />
+                <p>2 Year Warranty </p>
+              </div>
+            </div>
+
+            <div className="product-data-info">
+              <p>
+                Available:
+                <span> { stock> 0 ? 'IN STOCK' : 'OUT OF STOCK'}</span>
+              </p>
+              <p>
+                Category : <span> {category} </span>
+              </p>
+              <p>
+                Brand :<span>{company} </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
   .container {
     padding: 9rem 0;
+  }
+  .product_images {
+    display: flex;
+    align-items: center;
   }
   .product-data {
     display: flex;
@@ -16,7 +101,6 @@ const Wrapper = styled.section`
     align-items: flex-start;
     justify-content: center;
     gap: 2rem;
-
     .product-data-warranty {
       width: 100%;
       display: flex;
@@ -24,10 +108,8 @@ const Wrapper = styled.section`
       align-items: center;
       border-bottom: 1px solid #ccc;
       margin-bottom: 1rem;
-
       .product-warranty-data {
         text-align: center;
-
         .warranty-icon {
           background-color: rgba(220, 220, 220, 0.5);
           border-radius: 50%;
@@ -41,7 +123,6 @@ const Wrapper = styled.section`
         }
       }
     }
-
     .product-data-price {
       font-weight: bold;
     }
@@ -53,12 +134,10 @@ const Wrapper = styled.section`
       flex-direction: column;
       gap: 1rem;
       font-size: 1.8rem;
-
       span {
         font-weight: bold;
       }
     }
-
     hr {
       max-width: 100%;
       width: 90%;
@@ -67,13 +146,17 @@ const Wrapper = styled.section`
       color: red;
     }
   }
-
   .product-images {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
+  .page_loading {
+    font-size: 3.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     padding: 0 2.4rem;
   }

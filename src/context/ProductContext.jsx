@@ -8,7 +8,8 @@ const initialState = {
     products: [],
     feature_products: [],
     loading: false,
-    error: false
+    error: false,
+    single_product:{}
 }
 
 
@@ -31,10 +32,21 @@ const ProductProvider = ({ children }) => {
                 dispatch({ type: 'SET_ERROR', payload: err.message })
             })
     }
+
+    const getSingleProduct = async (id) => { 
+        dispatch({ type: "SET_LOADING" })
+        await axios.get(`${api}?id=${id}`)
+            .then((res) => {
+                dispatch({ type: 'SET_SINGLE_PRODUCT', payload: res.data })
+            }).catch((erro) => {
+                dispatch({ type: 'SET_ERROR', payload: erro.message })
+            })
+    }
+
     
     return (
          
-            <ProductContext.Provider value={{...state}}>
+            <ProductContext.Provider value={{...state,getSingleProduct}}>
                 {children}
             </ProductContext.Provider>
     )

@@ -23,6 +23,13 @@ const ProdductReducer = (state, action) => {
                 loading: false,
                 error: action.payload
             }
+        
+        case 'SET_SINGLE_PRODUCT':
+            return {
+                ...state,
+                loading: false,
+                single_product: action.payload
+            }
         default:
             return state;
     }
