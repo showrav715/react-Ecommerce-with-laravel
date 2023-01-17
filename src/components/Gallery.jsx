@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import styled from 'styled-components'
 export default function Gallery({ images: images = [{ url: "" }] }) {
-const [mainImage,setMainImage] = useState(images[0])
+  const [mainImage, setMainImage] = useState(images[0])
+  const hanldeImage = (image)=>{
+    setMainImage(image)
+  }
   return (
-        
-      <Wrapper>
+
+    <Wrapper>
       <div className="grid grid-four-column">
         {
-                  images.map((image, index) => {
-                      return (
-                    <figure key={index}>
-                        <img src={image.url}   className="box-image--style" key={index}/>
-                    </figure>
-               )
-           })       
+          images.map((image, index) => {
+            return (
+              <figure key={index} onClick={()=>hanldeImage(image)}>
+                <img src={image.url} className="box-image--style" key={index} />
+              </figure>
+            )
+          })
         }
       </div>
       {/* 2nd column  */}
 
       <div className="main-screen">
-        <img src={mainImage.url}  />
+        <img src={mainImage.url} />
       </div>
     </Wrapper>
-    );
+  );
 }
 
 
