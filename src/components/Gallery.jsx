@@ -10,7 +10,9 @@ const [mainImage,setMainImage] = useState(images[0])
                   images.map((image, index) => {
                       return (
                     <figure key={index}>
-                        <img src={image.url}   className="box-image--style" key={index}/>
+                          <img src={image.url}
+                            onClick={() => setMainImage(image)}
+                            className="box-image--style" key={index} />
                     </figure>
                )
            })       

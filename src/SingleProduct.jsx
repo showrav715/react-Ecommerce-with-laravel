@@ -7,6 +7,7 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Gallery from "./components/Gallery";
 import BackNavigation from "./components/BackNavigation";
+
 const SingleProduct = () => {
   const id = useParams().id;
 
