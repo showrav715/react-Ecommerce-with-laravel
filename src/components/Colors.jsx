@@ -30,6 +30,11 @@ const Colors = ({ product }) => {
         </p>
       </div>
 
+      <NavLink to={`/cart`}>
+        <br />
+        <Button className="btn">Add to Cart</Button>
+      </NavLink>
+
    
 
  
