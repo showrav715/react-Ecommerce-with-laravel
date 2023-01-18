@@ -1,4 +1,5 @@
 import React from 'react'
+import NumberFormat from '../helpers/NumberFormat'
 import { NavLink } from 'react-router-dom'
 import PriceFormat from '../helper/PriceFormat'
 export default function Product({name,price,id,image,category}) {

@@ -2,21 +2,23 @@ import { useContext, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import NumberFormat from "./helpers/NumberFormat";
 import { ProductContext } from "./context/ProductContext";
 import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Gallery from "./components/Gallery";
 import BackNavigation from "./components/BackNavigation";
-
+import Rating from "./components/Rating";
+import Colors from "./components/Colors";
 const SingleProduct = () => {
   const id = useParams().id;
 
   const { single_product, getSingleProduct, loading } = useContext(ProductContext);
-  console.log(single_product);
-  const {name,price,category,image,description,company,stock} = single_product;
+  const { name, price, category, image, description, company, stock,stars,reviews,colors } = single_product;
+
   useEffect(() => {
     getSingleProduct(id);
-  },[])
+  }, [])
 
 
   if (loading) {
@@ -28,23 +30,21 @@ const SingleProduct = () => {
       <BackNavigation title={name} />
       <Container className="container">
         <div className="grid grid-two-column">
-          {/* product Images  */}
           <div className="product_images">
             <Gallery images={image} />
           </div>
-          {/* product dAta  */}
           <div className="product-data">
             <h2>{name}</h2>
-              {price}
 
+            <Rating starts={stars} reviews={reviews} />
             <p className="product-data-price">
               MRP:
               <del>
-                {price}
+              <NumberFormat price={price+2500} />
               </del>
             </p>
             <p className="product-data-price product-data-real-price">
-              Deal of the Day: {price}
+              Deal of the Day: <NumberFormat price={price} />
             </p>
             <p>{description}</p>
             <div className="product-data-warranty">
@@ -72,7 +72,7 @@ const SingleProduct = () => {
             <div className="product-data-info">
               <p>
                 Available:
-                <span> { stock> 0 ? 'IN STOCK' : 'OUT OF STOCK'}</span>
+                <span> {stock > 0 ? 'IN STOCK' : 'OUT OF STOCK'}</span>
               </p>
               <p>
                 Category : <span> {category} </span>
@@ -81,6 +81,8 @@ const SingleProduct = () => {
                 Brand :<span>{company} </span>
               </p>
             </div>
+            <hr />
+            {single_product.colors  && <Colors product={single_product} />}
           </div>
         </div>
       </Container>
