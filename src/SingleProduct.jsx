@@ -9,7 +9,7 @@ import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Gallery from "./components/Gallery";
 import BackNavigation from "./components/BackNavigation";
 import Rating from "./components/Rating";
-import Colors from "./components/Colors";
+import Colors from "./components/AddtoCart";
 const SingleProduct = () => {
   const id = useParams().id;
 

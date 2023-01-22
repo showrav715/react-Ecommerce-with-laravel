@@ -3,12 +3,19 @@ import styled from "styled-components";
 import { FaCheck } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { Button } from "../styles/Button";
+import AddCartToggle from "./AddCartToggle";
 
-const Colors = ({ product }) => {
+const AddtoCart = ({ product }) => {
 
    const { id, colors, stock } = product;
     const [main, setMain] = useState(colors[0]);
-
+    const [qty, setQuantiy] = useState(1);
+    const increment = ()=>{
+      qty < stock ? setQuantiy(qty+1) : stock;
+    }
+    const decrement = ()=>{
+      qty > 1 && setQuantiy(qty-1);
+    }
    
   return (
     <Wrapper>
@@ -30,7 +37,12 @@ const Colors = ({ product }) => {
         </p>
       </div>
 
-   
+      <AddCartToggle qty={qty} increment={increment} decrement={decrement} />
+
+        
+        <NavLink to={`/cart`} >
+          <Button className="btn">add to cart</Button>
+        </NavLink>
 
  
     </Wrapper>
@@ -89,4 +101,4 @@ const Wrapper = styled.section`
     }
   }
 `;
-export default Colors;
+export default AddtoCart;
