@@ -23,8 +23,8 @@ const Products = () => {
           </div>
         </section>
       </div>
-    </Wrapper>
-  );
+  </Wrapper>
+  )
 };
 
 const Wrapper = styled.section`
