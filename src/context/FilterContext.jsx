@@ -7,6 +7,8 @@ const initialState = {
   filter_products: [],
   all_products: [],
   grid_view: true,
+  sort: "lowest",
+  search:''
 };
 
 const FilterProductsProvider = ({ children }) => {
@@ -24,9 +26,24 @@ const FilterProductsProvider = ({ children }) => {
     dispatch({ type: "LOAD_PRODUCTS", payload: products });
   }, [products]);
 
+
+  const handleShorting = (e) => {
+    const value = e.target.value;
+    
+    dispatch({ type: "FILTER_STORE",payload:value });
+    dispatch({ type: "FILTER_BY_SORT" });
+  }
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+
+    dispatch({ type: "FILTER_SEARCH_STORE",payload:value });
+    dispatch({ type: "FILTER_BY_SEARCH" });
+  }
+
   return (
     <FilterProductsContext.Provider
-      value={{ ...state, setGridView, setListView }}
+      value={{ ...state, setGridView, setListView,handleShorting,handleSearch }}
     >
       {children}
     </FilterProductsContext.Provider>

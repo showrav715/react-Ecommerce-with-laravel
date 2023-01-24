@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import NumberFormat from "./helpers/NumberFormat";
 import { ProductContext } from "./context/ProductContext";
 import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
@@ -10,6 +9,7 @@ import Gallery from "./components/Gallery";
 import BackNavigation from "./components/BackNavigation";
 import Rating from "./components/Rating";
 import Colors from "./components/Colors";
+import PriceFormat from "./helper/PriceFormat";
 const SingleProduct = () => {
   const id = useParams().id;
 
@@ -40,11 +40,11 @@ const SingleProduct = () => {
             <p className="product-data-price">
               MRP:
               <del>
-              <NumberFormat price={price+2500} />
+              <PriceFormat price={price+2500} />
               </del>
             </p>
             <p className="product-data-price product-data-real-price">
-              Deal of the Day: <NumberFormat price={price} />
+              Deal of the Day: <PriceFormat price={price} />
             </p>
             <p>{description}</p>
             <div className="product-data-warranty">

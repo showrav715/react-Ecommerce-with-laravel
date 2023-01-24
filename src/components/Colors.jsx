@@ -5,11 +5,9 @@ import { NavLink } from "react-router-dom";
 import { Button } from "../styles/Button";
 
 const Colors = ({ product }) => {
+  const { id, colors, stock } = product;
+  const [main, setMain] = useState(colors[0]);
 
-   const { id, colors, stock } = product;
-    const [main, setMain] = useState(colors[0]);
-
-   
   return (
     <Wrapper>
       <div className="colors">
@@ -22,8 +20,8 @@ const Colors = ({ product }) => {
                 style={{ backgroundColor: curColor }}
                 className={curColor == main ? "btnStyle active" : "btnStyle"}
                 onClick={() => setMain(curColor)}
-               >
-               {main==curColor ? <FaCheck className="checkStyle" /> : null}
+              >
+                {main == curColor ? <FaCheck className="checkStyle" /> : null}
               </button>
             );
           })}
@@ -34,10 +32,6 @@ const Colors = ({ product }) => {
         <br />
         <Button className="btn">Add to Cart</Button>
       </NavLink>
-
-   
-
- 
     </Wrapper>
   );
 };

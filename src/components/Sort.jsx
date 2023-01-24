@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 import { FilterProductsContext } from "../context/FilterContext";
 export default function Sort() {
-  const { grid_view, setGridView, setListView } = useContext(
+  const { grid_view, setGridView, setListView,filter_products,handleShorting } = useContext(
     FilterProductsContext
   );
+
+
+
   return (
     <Wrapper className="sort-section">
       {/* 1st column  */}
@@ -25,13 +28,15 @@ export default function Sort() {
         </button>
       </div>
       {/* 2nd column  */}
-      <div className="product-data"></div>
+      <div className="product-data">
+        <p>{filter_products.length} products found</p>
+      </div>
 
       {/* 3rd column  */}
       <div className="sort-selection">
         <form action="#">
           <label htmlFor="sort"></label>
-          <select name="sort" id="sort" className="sort-selection--style">
+          <select name="sort" onChange={(e)=>{handleShorting(e)}} id="sort" className="sort-selection--style">
             <option value="lowest">Price(lowest)</option>
             <option value="#" disabled></option>
             <option value="highest">Price(highest)</option>
