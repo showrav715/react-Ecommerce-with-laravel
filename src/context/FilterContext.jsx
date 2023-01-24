@@ -10,6 +10,9 @@ const initialState = {
   sort: "lowest",
   search: {
     search: "",
+    category: "all",
+    company: "all",
+    color: "all",
   }
 };
 
@@ -24,12 +27,15 @@ const FilterProductsProvider = ({ children }) => {
     dispatch({ type: "SET_LIST_VIEW" });
   };
 
+
+
   useEffect(() => {
     dispatch({ type: "FILTER_PRODUCT" });
     dispatch({ type: "FILTER_BY_SORT" });
   }, [products, state.search,state.sort]);
   
 
+  
   useEffect(() => {
     dispatch({ type: "LOAD_PRODUCTS", payload: products });
   }, [products]);
@@ -38,7 +44,6 @@ const FilterProductsProvider = ({ children }) => {
   const handleShorting = (e) => {
     const value = e.target.value;
     dispatch({ type: "FILTER_STORE",payload:value });
-    
   }
 
   const handleSearch = (e) => {

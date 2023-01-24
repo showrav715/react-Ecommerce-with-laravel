@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PriceFormat from '../helper/PriceFormat';
 import {Button} from '../styles/Button';
 export default function ListView({products}) {
-  console.log(products);
+
   return (
     <Wrapper className="section">
       <div className="container grid">
