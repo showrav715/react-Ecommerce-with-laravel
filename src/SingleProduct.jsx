@@ -8,13 +8,13 @@ import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Gallery from "./components/Gallery";
 import BackNavigation from "./components/BackNavigation";
 import Rating from "./components/Rating";
-import Colors from "./components/Colors";
 import PriceFormat from "./helper/PriceFormat";
+import AddtoCart from './components/AddtoCart'
 const SingleProduct = () => {
   const id = useParams().id;
 
   const { single_product, getSingleProduct, loading } = useContext(ProductContext);
-  const { name, price, category, image, description, company, stock,stars,reviews,colors } = single_product;
+  const { name, price, category, image, description, company, stock,stars,reviews } = single_product;
 
   useEffect(() => {
     getSingleProduct(id);
@@ -82,7 +82,7 @@ const SingleProduct = () => {
               </p>
             </div>
             <hr />
-            {single_product.colors  && <Colors product={single_product} />}
+            {single_product.stock  && <AddtoCart product={single_product} />}
           </div>
         </div>
       </Container>

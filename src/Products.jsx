@@ -1,16 +1,18 @@
-import React from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import FilterSection from "./components/FilterSection";
 import ProductList from "./components/ProductList";
 import Sort from "./components/Sort";
 
 const Products = () => {
-  return <Wrapper>
-        <div className="container grid grid-filter-column">
+
+
+  return (
+    <Wrapper>
+      <div className="container grid grid-filter-column">
         <div>
           <FilterSection />
         </div>
-
         <section className="product-view--sort">
           <div className="sort-filter">
             <Sort />
@@ -20,14 +22,14 @@ const Products = () => {
           </div>
         </section>
       </div>
-  </Wrapper>;
+  </Wrapper>
+  )
 };
 
 const Wrapper = styled.section`
   .grid-filter-column {
     grid-template-columns: 0.2fr 1fr;
   }
-
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     .grid-filter-column {
       grid-template-columns: 1fr;
