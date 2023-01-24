@@ -8,7 +8,9 @@ const initialState = {
   all_products: [],
   grid_view: true,
   sort: "lowest",
-  search:''
+  search: {
+    search: "",
+  }
 };
 
 const FilterProductsProvider = ({ children }) => {
@@ -23,22 +25,26 @@ const FilterProductsProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    dispatch({ type: "FILTER_PRODUCT" });
+    dispatch({ type: "FILTER_BY_SORT" });
+  }, [products, state.search,state.sort]);
+  
+
+  useEffect(() => {
     dispatch({ type: "LOAD_PRODUCTS", payload: products });
   }, [products]);
 
 
   const handleShorting = (e) => {
     const value = e.target.value;
-    
     dispatch({ type: "FILTER_STORE",payload:value });
-    dispatch({ type: "FILTER_BY_SORT" });
+    
   }
 
   const handleSearch = (e) => {
-    const value = e.target.value;
-
-    dispatch({ type: "FILTER_SEARCH_STORE",payload:value });
-    dispatch({ type: "FILTER_BY_SEARCH" });
+    const name = e.target.name;
+    const value = e.target.value
+    dispatch({ type: "FILTER_UPDATE",payload:{name,value} });
   }
 
   return (

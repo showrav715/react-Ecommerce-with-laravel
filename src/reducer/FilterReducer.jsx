@@ -23,43 +23,58 @@ const FilterReducer = (state, action) => {
         sort: action.payload,
       };
 
-    case "FILTER_SEARCH_STORE":
+    case "FILTER_PRODUCT":
+      const { all_products } = state;
+      const { search } = state.search;
+      let tempsProducts = [...all_products];
+      if (search) {
+        tempsProducts = tempsProducts.filter((product) => {
+          return product.name.toLowerCase().includes(search);
+        });
+      }
       return {
         ...state,
-        search: action.payload,
+        filter_products: tempsProducts,
       };
 
-    case "FILTER_BY_SEARCH":
+    case "FILTER_UPDATE":
+      const { name, value } = action.payload;
       return {
         ...state,
-        filter_products: searchProducts,
+        search: {
+          ...state.search,
+          [name]: value,
+        },
       };
 
     case "FILTER_BY_SORT":
-      const { sort } = state;
-      const tempProducts = [...state.filter_products];
+      const { sort,filter_products } = state;
+      let tempProducts = [...filter_products];
+      
       switch (sort) {
         case "a-z":
-          tempProducts.sort((a, b) => {
+          tempProducts = tempProducts.sort((a, b) => {
             return a.name.localeCompare(b.name);
           });
           break;
         case "z-a":
-          tempProducts.sort((a, b) => {
+          tempProducts = tempProducts.sort((a, b) => {
             return b.name.localeCompare(a.name);
           });
           break;
         case "lowest":
-          tempProducts.sort((a, b) => {
+          tempProducts = tempProducts.sort((a, b) => {
             return a.price - b.price;
           });
           break;
         case "highest":
-          tempProducts.sort((a, b) => {
+          tempProducts = tempProducts.sort((a, b) => {
             return b.price - a.price;
           });
           break;
       }
+
+
 
       return {
         ...state,
