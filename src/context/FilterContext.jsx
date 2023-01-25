@@ -34,7 +34,6 @@ const FilterProductsProvider = ({ children }) => {
     dispatch({ type: "FILTER_BY_SORT" });
   }, [products, state.search,state.sort]);
   
-
   
   useEffect(() => {
     dispatch({ type: "LOAD_PRODUCTS", payload: products });
