@@ -4,6 +4,15 @@ import styled from 'styled-components';
 import PriceFormat from '../helper/PriceFormat';
 import {Button} from '../styles/Button';
 export default function ListView({products}) {
+  if(products.length < 1) {
+    return (
+      <Wrapper className="section">
+        <div className="container grid" style={{textAlign:'center'}}>
+          <h3>Sorry, no products matched your search.</h3>
+        </div>
+      </Wrapper>
+    )
+  }
 
   return (
     <Wrapper className="section">
