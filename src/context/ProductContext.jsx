@@ -14,9 +14,6 @@ const initialState = {
 
 
 
-
-
-
 const ProductProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
     let api = 'https://api.pujakaitem.com/api/products';

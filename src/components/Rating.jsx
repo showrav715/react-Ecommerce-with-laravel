@@ -1,34 +1,33 @@
-import React from 'react'
-import { FaStar } from 'react-icons/fa'
-import styled from 'styled-components'
-import { FaStarHalf } from 'react-icons/fa'
-import { FaRegStar } from 'react-icons/fa'
+import React from "react";
+import { FaStar } from "react-icons/fa";
+import styled from "styled-components";
+import { FaStarHalf } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 export default function Rating({ starts, reviews }) {
-    console.log(starts)
-    const tempStars = Array.from({ length: 5 }, (_, index) => {
-        const number = index + 0.5;
-
-        return (
-            <span className='icon' key={index}>
-                {
-                    starts >> 0 >= index + 1 ? <FaStar /> : starts >> number ? <FaStarHalf /> : <FaRegStar />
-                }
-            </span>
-
-        )
-    }
-    )
+  const tempStars = Array.from({ length: 5 }, (_, index) => {
+    const number = index + 0.5;
 
     return (
-        <Wrapper>
-            <div className="icon-style">
-                {tempStars}
-                <p>({reviews} number people)</p>
-            </div>
+      <span className="icon" key={index}>
+        {starts >> 0 >= index + 1 ? (
+          <FaStar />
+        ) : starts >> number ? (
+          <FaStarHalf />
+        ) : (
+          <FaRegStar />
+        )}
+      </span>
+    );
+  });
 
-
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <div className="icon-style">
+        {tempStars}
+        <p>({reviews} number people)</p>
+      </div>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`

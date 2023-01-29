@@ -1,7 +1,38 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import CartItem from "./components/CartItem";
+import { CartContext } from "./context/CartContext";
 
 const Cart = () => {
-  return <Wrapper></Wrapper>;
+  const { cart } = useContext(CartContext);
+
+  if (cart.length   ===0) { 
+    return <div style={{textAlign:"center",marginTop:"50px"}} >
+      <h2>your cart is empty</h2>
+      
+    </div >;
+    
+  }
+  return (
+    <Wrapper>
+      <div className="container">
+        <div className="cart_heading grid grid-five-column">
+          <p>Item</p>
+          <p className="cart-hide">Price</p>
+          <p>Quantity</p>
+          <p className="cart-hide">Subtotal</p>
+          <p>Remove</p>
+        </div>
+        <hr />
+
+        <div className="cart-item">
+          {cart.map((curELM) => {
+            return <CartItem {...curELM} key={curELM.id} />;
+          })}
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`

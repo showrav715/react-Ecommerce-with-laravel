@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import styled from "styled-components";
 import { FaCheck } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { Button } from "../styles/Button";
 import AddCartToggle from "./AddCartToggle";
+import { CartContext } from "../context/CartContext";
+
+
 
 const AddtoCart = ({ product }) => {
+
+  const {addCart} = useContext(CartContext);
+
+
 
    const { id, colors, stock } = product;
     const [main, setMain] = useState(colors[0]);
     const [qty, setQuantiy] = useState(1);
     const increment = ()=>{
-      qty < stock ? setQuantiy(qty+1) : stock;
+      qty+1 < stock ? setQuantiy(qty+1) : stock;
     }
     const decrement = ()=>{
       qty > 1 && setQuantiy(qty-1);
@@ -37,9 +44,11 @@ const AddtoCart = ({ product }) => {
         </p>
       </div>
 
+      <AddCartToggle qty={qty} increment={increment} decrement={decrement} />
+      
       <NavLink to={`/cart`}>
         <br />
-        <Button className="btn">Add to Cart</Button>
+        <Button onClick={ () =>  addCart(id,qty,main,product)} className="btn">Add to Cart</Button>
       </NavLink>
     </Wrapper>
   );

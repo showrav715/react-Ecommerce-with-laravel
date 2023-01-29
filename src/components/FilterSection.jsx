@@ -2,16 +2,22 @@ import React from "react";
 import { useContext } from "react";
 import { FilterProductsContext } from "../context/FilterContext";
 import styled from "styled-components";
+import { FaCheck } from "react-icons/fa";
+import PriceFormat from "../helper/PriceFormat";
 export default function FilterSection() {
-  const { handleSearch, search: { search,category,color,company },all_products } = useContext(FilterProductsContext);
+  const {
+    handleSearch,
+    search: { search, category, color, price,max_price,min_price },
+    all_products,
+  } = useContext(FilterProductsContext);
 
-  const uniqueValues = (data, type) => { 
+  const uniqueValues = (data, type) => {
     let unique = data.map((item) => item[type]);
-    if (type === "colors") { 
+    if (type === "colors") {
       unique = unique.flat();
     }
     return ["all", ...new Set(unique)];
-  }
+  };
 
   const categories = uniqueValues(all_products, "category");
   const companyData = uniqueValues(all_products, "company");
@@ -21,7 +27,13 @@ export default function FilterSection() {
     <Wrapper>
       <div className="filter-search">
         <form onSubmit={(e) => e.preventDefault()}>
-          <input type="text" name="search" placeholder="Search" onChange={handleSearch} value={search} />
+          <input
+            type="text"
+            name="search"
+            placeholder="Search"
+            onChange={handleSearch}
+            value={search}
+          />
         </form>
       </div>
 
@@ -36,7 +48,8 @@ export default function FilterSection() {
                 type="button"
                 name="category"
                 className={`${category === curElem ? "active" : null}`}
-                value={curElem}>
+                value={curElem}
+              >
                 {curElem}
               </button>
             );
@@ -53,7 +66,7 @@ export default function FilterSection() {
             id="company"
             className="filter-company--select"
             onChange={handleSearch}
-            >
+          >
             {companyData.map((curElem, index) => {
               return (
                 <option key={index} value={curElem} name="company">
@@ -70,18 +83,53 @@ export default function FilterSection() {
 
         <div className="filter-color-style">
           {colorsData.map((curColor, index) => {
-            return (
-              <button
-                key={index}
-                type="button"
-                value={curColor}
-                style={{ backgroundColor: curColor }}
-                name="color"
-                className="btnStyle">
-              </button>
-            );
+            if (curColor == "all") {
+              return (
+                <button
+                  key={index}
+                  name="color"
+                  type="button"
+                  value={curColor}
+                  onClick={handleSearch}
+                  className="color-all--style"
+                >
+                  all
+                </button>
+              );
+            } else {
+              return (
+                <button
+                  key={index}
+                  name="color"
+                  type="button"
+                  value={curColor}
+                  onClick={handleSearch}
+                  style={{ backgroundColor: curColor }}
+                  className={curColor == color ? "btnStyle active" : "btnStyle"}
+                >
+                  {curColor == color ? (
+                    <FaCheck className="checkStyle" />
+                  ) : null}
+                </button>
+              );
+            }
           })}
         </div>
+      </div>
+
+      <div className="filter_price">
+        <h3>Price</h3>
+        <p>
+          <PriceFormat price={price} />
+        </p>
+        <input
+          type="range"
+          name="price"
+          min={min_price}
+          max={max_price}
+          value={price}
+          onChange={handleSearch}
+        />
       </div>
     </Wrapper>
   );

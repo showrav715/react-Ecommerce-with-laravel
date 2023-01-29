@@ -1,10 +1,16 @@
 const FilterReducer = (state, action) => {
   switch (action.type) {
     case "LOAD_PRODUCTS":
+      const priceAttr = action.payload.map((item) => item.price);
+      const maxPrice = Math.max(...priceAttr);
       return {
         ...state,
         all_products: [...action.payload],
         filter_products: [...action.payload],
+        search: {
+          ...state.search,
+          ["max_price"]: maxPrice,
+        },
       };
     case "SET_GRID_VIEW":
       return {
@@ -25,8 +31,8 @@ const FilterReducer = (state, action) => {
 
     case "FILTER_PRODUCT":
       const { all_products } = state;
-      console.log(all_products);
-      const { search,company,category } = state.search;
+
+      const { search, company, category, color } = state.search;
       let tempsProducts = [...all_products];
       if (search) {
         tempsProducts = tempsProducts.filter((product) => {
@@ -41,6 +47,11 @@ const FilterReducer = (state, action) => {
       if (category && category !== "all") {
         tempsProducts = tempsProducts.filter((product) => {
           return product.category.toLowerCase().includes(category);
+        });
+      }
+      if (color != "all") {
+        tempsProducts = tempsProducts.filter((product) => {
+          return product.colors.includes(color);
         });
       }
       return {
@@ -60,11 +71,10 @@ const FilterReducer = (state, action) => {
 
     case "FILTER_BY_SORT":
       const { sort, filter_products } = state;
-      
+
       let tempProducts = [...filter_products];
       let temp;
       switch (sort) {
-        
         case "a-z":
           temp = tempProducts.sort((a, b) => {
             return a.name.localeCompare(b.name);

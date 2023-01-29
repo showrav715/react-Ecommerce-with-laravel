@@ -13,6 +13,9 @@ const initialState = {
     category: "all",
     company: "all",
     color: "all",
+    price: 0,
+    min_price:0,
+    mix_price:0
   }
 };
 
