@@ -2,9 +2,20 @@ import React from 'react'
 import styled from 'styled-components';
 import Product from './Product';
 export default function GridView({products}) {
+  if(products.length < 1) {
+    return (
+      <Wrapper className="section">
+        <div className="container" style={{textAlign:'center'}}>
+          <h3 style={{textAlign: 'center'}}>Sorry, no products matched your search</h3>
+        </div>
+      </Wrapper>
+    )
+  }
   return (
+    
     <Wrapper className="section">
     <div className="container grid grid-three-column">
+        
         {
           products.map((product) => {
             return <Product {...product} key={product.id} />
