@@ -12,8 +12,6 @@ export default function CartItem({ id, name, qty, color, price, image, stock }) 
   }
   const { removeCartItem } = useContext(CartContext);
 
-    
-
     return (
         <div className="cart_heading grid grid-five-column">
           <div className="cart-image--name">
